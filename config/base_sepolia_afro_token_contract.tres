@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BlockchainContractResource" load_steps=2 format=3 uid="uid://cemrutmfr813k"]
+
+[ext_resource type="Script" path="res://addons/godotblockchain/BlockchainContractResource.cs" id="1_hjnqr"]
+
+[resource]
+script = ExtResource("1_hjnqr")
+contractAddress = "0x18128817Bda99b1070b54fb10829a8E53F48854f"
+chainId = 84532

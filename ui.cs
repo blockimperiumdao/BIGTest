@@ -5,6 +5,9 @@ public partial class ui : CanvasLayer
 {
 	bool isLoginStarted = false;
 	
+	[Export]
+	private ERC20BlockchainContractNode				erc20ContractNode;
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -37,6 +40,24 @@ public partial class ui : CanvasLayer
 	public void _on_smart_wallet_button_pressed()
 	{
 		BlockchainClientNode.Instance.CreateSmartWallet();
+	}
+	
+	public async void _on_claim_erc20_button_pressed()
+	{
+		GD.Print("Pressed");
+		
+		if (erc20ContractNode != null)
+		{
+			erc20ContractNode.FetchMetadata();
+			
+			GD.Print(await erc20ContractNode.TokenName());
+			
+			await erc20ContractNode.Claim("1.0");
+		}
+		else
+		{
+			GD.Print("No contract node");
+		}
 	}
 	
 	public void DisplayLog( string message )

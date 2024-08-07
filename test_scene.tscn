@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6mvy2ksuboop"]
+[gd_scene load_steps=8 format=3 uid="uid://c6mvy2ksuboop"]
 
 [ext_resource type="Script" path="res://addons/godotblockchain/BlockchainContractNode.cs" id="1_mbgf3"]
 [ext_resource type="Script" path="res://addons/godotblockchain/BlockchainClientNode.cs" id="2_i3nbm"]
 [ext_resource type="Script" path="res://addons/godotblockchain/BlockchainClientConfigurationResource.cs" id="3_tyso8"]
 [ext_resource type="Script" path="res://ui.cs" id="4_al5qr"]
+[ext_resource type="Script" path="res://addons/godotblockchain/ERC20BlockchainContractNode.cs" id="4_o3opm"]
+[ext_resource type="Resource" uid="uid://cemrutmfr813k" path="res://config/base_sepolia_afro_token_contract.tres" id="5_xmv7u"]
 
 [sub_resource type="Resource" id="Resource_jwm2x"]
 script = ExtResource("3_tyso8")
@@ -22,8 +24,13 @@ script = ExtResource("1_mbgf3")
 script = ExtResource("2_i3nbm")
 clientConfiguration = SubResource("Resource_jwm2x")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="ERC20DropContract" type="Node" parent="BlockchainManager"]
+script = ExtResource("4_o3opm")
+contractResource = ExtResource("5_xmv7u")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("erc20ContractNode")]
 script = ExtResource("4_al5qr")
+erc20ContractNode = NodePath("../BlockchainManager/ERC20DropContract")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
 offset_left = 266.0
@@ -45,5 +52,10 @@ text = "SUBMIT"
 layout_mode = 2
 text = "CREATE SMART WALLET"
 
+[node name="ClaimERC20" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "CLAIM ERC20"
+
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Button" to="CanvasLayer" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/SmartWalletButton" to="CanvasLayer" method="_on_smart_wallet_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC20" to="CanvasLayer" method="_on_claim_erc20_button_pressed"]
