@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6mvy2ksuboop"]
+
+[ext_resource type="Script" path="res://addons/godotblockchain/BlockchainContractNode.cs" id="1_mbgf3"]
+[ext_resource type="Script" path="res://addons/godotblockchain/BlockchainClientNode.cs" id="2_i3nbm"]
+[ext_resource type="Script" path="res://addons/godotblockchain/BlockchainClientConfigurationResource.cs" id="3_tyso8"]
+[ext_resource type="Script" path="res://ui.cs" id="4_al5qr"]
+
+[sub_resource type="Resource" id="Resource_jwm2x"]
+script = ExtResource("3_tyso8")
+walletFactoryAddress = "0x10FAd3466f1c5d950A49Cc562337Ebf8Bf86edb9"
+chainId = 84532
+bundleId = "com.big.test"
+clientId = "bb2324eb6b7398856a1ad7c8980c4e11"
+isGasless = true
+
+[node name="TestScene" type="Node2D"]
+
+[node name="BlockchainManager" type="Node" parent="." groups=["Blockchain"]]
+script = ExtResource("1_mbgf3")
+
+[node name="BlockchainClient" type="Node" parent="BlockchainManager" groups=["Blockchain"]]
+script = ExtResource("2_i3nbm")
+clientConfiguration = SubResource("Resource_jwm2x")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("4_al5qr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = 266.0
+offset_top = 81.0
+offset_right = 895.0
+offset_bottom = 533.0
+
+[node name="EmailEntry" type="LineEdit" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="OTPEntry" type="LineEdit" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "SUBMIT"
+
+[node name="SmartWalletButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "CREATE SMART WALLET"
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Button" to="CanvasLayer" method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/SmartWalletButton" to="CanvasLayer" method="_on_smart_wallet_button_pressed"]
