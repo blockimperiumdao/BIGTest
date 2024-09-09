@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using BIGConnect.addons.godotblockchain;
 
 public partial class ui : CanvasLayer
 {
@@ -46,11 +47,13 @@ public partial class ui : CanvasLayer
 	{
 		GD.Print("Pressed");
 		
+		erc20ContractNode.Initialize();
+		
 		if (erc20ContractNode != null)
 		{
-			erc20ContractNode.FetchMetadata();
+			ERC20BlockchainContractNode.ERC20TokenMetadata metadata = await erc20ContractNode.FetchMetadata();
 			
-			GD.Print(await erc20ContractNode.TokenName());
+			GD.Print(metadata.TokenName);
 			
 			await erc20ContractNode.Claim("1.0");
 		}

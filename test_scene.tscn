@@ -24,9 +24,9 @@ script = ExtResource("1_mbgf3")
 script = ExtResource("2_i3nbm")
 clientConfiguration = SubResource("Resource_jwm2x")
 
-[node name="ERC20DropContract" type="Node" parent="BlockchainManager"]
+[node name="ERC20DropContract" type="Node" parent="BlockchainManager" groups=["Blockchain"]]
 script = ExtResource("4_o3opm")
-contractResource = ExtResource("5_xmv7u")
+ContractResource = ExtResource("5_xmv7u")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("erc20ContractNode")]
 script = ExtResource("4_al5qr")
