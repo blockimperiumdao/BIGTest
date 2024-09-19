@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBlockchain", "TestBlockchain.csproj", "{41596646-B25C-4133-AA57-32A7F33F6AF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIGTest", "BIGTest.csproj", "{41596646-B25C-4133-AA57-32A7F33F6AF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

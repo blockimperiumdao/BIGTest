@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c6mvy2ksuboop"]
+[gd_scene load_steps=10 format=3 uid="uid://c6mvy2ksuboop"]
 
 [ext_resource type="Script" path="res://addons/godotblockchain/BlockchainContractNode.cs" id="1_mbgf3"]
 [ext_resource type="Script" path="res://addons/godotblockchain/BlockchainClientNode.cs" id="2_i3nbm"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://ui.cs" id="4_al5qr"]
 [ext_resource type="Script" path="res://addons/godotblockchain/ERC20BlockchainContractNode.cs" id="4_o3opm"]
 [ext_resource type="Resource" uid="uid://cemrutmfr813k" path="res://config/base_sepolia_afro_token_contract.tres" id="5_xmv7u"]
+[ext_resource type="Script" path="res://addons/godotblockchain/ERC721BlockchainContractNode.cs" id="6_w5qy1"]
+[ext_resource type="Script" path="res://addons/godotblockchain/ERC1155BlockchainContractNode.cs" id="7_bgbx6"]
 
 [sub_resource type="Resource" id="Resource_jwm2x"]
 script = ExtResource("3_tyso8")
@@ -27,6 +29,12 @@ clientConfiguration = SubResource("Resource_jwm2x")
 [node name="ERC20DropContract" type="Node" parent="BlockchainManager" groups=["Blockchain"]]
 script = ExtResource("4_o3opm")
 ContractResource = ExtResource("5_xmv7u")
+
+[node name="ERC721BlockchainContractNode" type="Node" parent="BlockchainManager"]
+script = ExtResource("6_w5qy1")
+
+[node name="ERC1155BlockchainContractNode" type="Node" parent="BlockchainManager" groups=["Blockchain"]]
+script = ExtResource("7_bgbx6")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("erc20ContractNode")]
 script = ExtResource("4_al5qr")
@@ -56,6 +64,16 @@ text = "CREATE SMART WALLET"
 layout_mode = 2
 text = "CLAIM ERC20"
 
+[node name="ClaimERC721" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "CLAIM ERC20"
+
+[node name="ClaimERC1155" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "CLAIM ERC20"
+
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Button" to="CanvasLayer" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/SmartWalletButton" to="CanvasLayer" method="_on_smart_wallet_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC20" to="CanvasLayer" method="_on_claim_erc20_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC721" to="CanvasLayer" method="_on_claim_erc20_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC1155" to="CanvasLayer" method="_on_claim_erc20_button_pressed"]
