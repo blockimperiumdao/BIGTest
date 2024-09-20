@@ -1,6 +1,8 @@
 # Godot 4+ specific ignores
 .godot/
 android/
-addons/
-addons/godotblockchain/
 .idea/
+
+#Make sure the addons directory doesn't make its way into the repo (even if symlinked)
+addons
+addons/
