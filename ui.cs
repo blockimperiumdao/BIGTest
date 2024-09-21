@@ -196,7 +196,7 @@ public partial class ui : CanvasLayer
 		{
 			erc721ContractNode.Initialize();
 			
-			List<NFT> nfts = await erc721ContractNode.InternalThirdwebContract.ERC721_GetAllNFTs();
+			List<NFT> nfts = await TokenUtils.GetAllNFTsFromContractNode( erc721ContractNode );
 			GD.Print("NFTs owned: " + nfts.Count);
 			
 			//iterate over the NFTs and get the first one
