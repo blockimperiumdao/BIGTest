@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c6mvy2ksuboop"]
+[gd_scene load_steps=13 format=3 uid="uid://c6mvy2ksuboop"]
 
 [ext_resource type="Script" path="res://addons/godotblockchain/BlockchainContractNode.cs" id="1_mbgf3"]
 [ext_resource type="Script" path="res://addons/godotblockchain/BlockchainClientNode.cs" id="2_i3nbm"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://addons/godotblockchain/ERC20BlockchainContractNode.cs" id="4_o3opm"]
 [ext_resource type="Resource" uid="uid://cemrutmfr813k" path="res://config/base_sepolia_afro_token_contract.tres" id="5_xmv7u"]
 [ext_resource type="Script" path="res://addons/godotblockchain/ERC721BlockchainContractNode.cs" id="6_w5qy1"]
+[ext_resource type="Script" path="res://addons/godotblockchain/BlockchainContractResource.cs" id="7_5il0c"]
 [ext_resource type="Script" path="res://addons/godotblockchain/ERC1155BlockchainContractNode.cs" id="7_bgbx6"]
 
 [sub_resource type="Resource" id="Resource_jwm2x"]
@@ -16,6 +17,16 @@ chainId = 84532
 bundleId = "com.big.test"
 clientId = "bb2324eb6b7398856a1ad7c8980c4e11"
 isGasless = true
+
+[sub_resource type="Resource" id="Resource_bsj7q"]
+script = ExtResource("7_5il0c")
+contractAddress = "0x28A8676C3e948749F278C3338DBA957754F5624A"
+chainId = 84532
+
+[sub_resource type="Resource" id="Resource_hbv6b"]
+script = ExtResource("7_5il0c")
+contractAddress = "0x700B8175ab0463C96339577434587E68b9317348"
+chainId = 84532
 
 [node name="TestScene" type="Node2D"]
 
@@ -30,15 +41,19 @@ clientConfiguration = SubResource("Resource_jwm2x")
 script = ExtResource("4_o3opm")
 ContractResource = ExtResource("5_xmv7u")
 
-[node name="ERC721BlockchainContractNode" type="Node" parent="BlockchainManager"]
+[node name="ERC721BlockchainContractNode" type="Node" parent="BlockchainManager" groups=["Blockchain"]]
 script = ExtResource("6_w5qy1")
+ContractResource = SubResource("Resource_bsj7q")
 
 [node name="ERC1155BlockchainContractNode" type="Node" parent="BlockchainManager" groups=["Blockchain"]]
 script = ExtResource("7_bgbx6")
+ContractResource = SubResource("Resource_hbv6b")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("erc20ContractNode")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("erc20ContractNode", "erc1155ContractNode", "erc721ContractNode")]
 script = ExtResource("4_al5qr")
 erc20ContractNode = NodePath("../BlockchainManager/ERC20DropContract")
+erc1155ContractNode = NodePath("../BlockchainManager/ERC1155BlockchainContractNode")
+erc721ContractNode = NodePath("../BlockchainManager/ERC721BlockchainContractNode")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
 offset_left = 266.0
@@ -66,14 +81,14 @@ text = "CLAIM ERC20"
 
 [node name="ClaimERC721" type="Button" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
-text = "CLAIM ERC20"
+text = "CLAIM ERC721"
 
 [node name="ClaimERC1155" type="Button" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
-text = "CLAIM ERC20"
+text = "CLAIM ERC1155"
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Button" to="CanvasLayer" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/SmartWalletButton" to="CanvasLayer" method="_on_smart_wallet_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC20" to="CanvasLayer" method="_on_claim_erc20_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC721" to="CanvasLayer" method="_on_claim_erc20_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC1155" to="CanvasLayer" method="_on_claim_erc20_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC721" to="CanvasLayer" method="_on_claim_erc721_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC1155" to="CanvasLayer" method="_on_claim_erc1155_button_pressed"]
