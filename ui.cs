@@ -121,7 +121,72 @@ public partial class ui : CanvasLayer
 		{
 			GD.Print("No contract node - did you remember to set the ERC1155 contract node in the Godot UI?");
 		}
-	}	
+	}
+
+	public async void _on_getNftAsSprite2D_button_pressed()
+	{
+		GD.Print("Get NFT as Sprite2D Pressed");
+
+		var tokenId = 0;
+		
+		if (erc721ContractNode != null)
+		{
+			erc721ContractNode.Initialize();
+			
+			NFT nft = await TokenUtils.GetNFTFromContractNode( erc721ContractNode, tokenId );
+			Sprite2D nftAsSprite2D = await TokenUtils.GetNFTAsSprite2D(nft);
+
+			AddChild(nftAsSprite2D);
+		}
+	}
+	
+	public async void _on_getNftAsTexture_button_pressed()
+	{
+		GD.Print("Get NFT as Texture Pressed");
+
+		var tokenId = 0;
+		
+		if (erc721ContractNode != null)
+		{
+			erc721ContractNode.Initialize();
+			
+			MeshInstance3D box = new MeshInstance3D();
+			box.Mesh = new BoxMesh();
+
+			var material = new StandardMaterial3D();
+	
+			NFT nft = await TokenUtils.GetNFTFromContractNode( erc721ContractNode, tokenId );
+			ImageTexture nftAsImageTexture = await TokenUtils.GetNFTAsTexture(nft);
+
+			material.AlbedoTexture = nftAsImageTexture;
+			box.Mesh.SurfaceSetMaterial(0, material);
+			
+			AddChild(box);
+			
+			box.SetGlobalPosition(new Vector3(0.0f, 0.0f, -10.0f) );
+		}
+	}
+
+	public async void _on_getNftAsAudio_button_pressed()
+	{
+		GD.Print("Get NFT as Audio Pressed");
+
+		var tokenId = 3;
+		
+		if (erc721ContractNode != null)
+		{
+			erc721ContractNode.Initialize();
+			
+			NFT nft = await TokenUtils.GetNFTFromContractNode( erc721ContractNode, tokenId );
+			AudioStream nftAsAudio = await TokenUtils.GetNFTAsAudioStreamMP3(nft);
+			
+			AudioStreamPlayer audioStreamPlayer = new AudioStreamPlayer();
+			AddChild(audioStreamPlayer);
+			
+			audioStreamPlayer.Stream = nftAsAudio;
+			audioStreamPlayer.Play();
+		}
+	}
 
 	public async void _on_get3dmodel_button_pressed()
 	{
@@ -148,9 +213,6 @@ public partial class ui : CanvasLayer
 					AddChild(nftAsNode);
 				}
 			}
-			
-			//NFT nft = await erc721ContractNode.InternalThirdwebContract.ERC721_GetNFT( tokenId );
-
 			
 			GD.Print("3D Model Fetched!");
 		}

@@ -93,9 +93,24 @@ text = "CLAIM ERC1155"
 layout_mode = 2
 text = "GET 3D MODEL"
 
+[node name="GetSprite2D" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "GET SPRITE 2D"
+
+[node name="GetImageTexture" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "GET IMAGE TEXTURE"
+
+[node name="GetMusic" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "GET MUSIC"
+
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Button" to="CanvasLayer" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/SmartWalletButton" to="CanvasLayer" method="_on_smart_wallet_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC20" to="CanvasLayer" method="_on_claim_erc20_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC721" to="CanvasLayer" method="_on_claim_erc721_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC1155" to="CanvasLayer" method="_on_claim_erc1155_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Get3DModel" to="CanvasLayer" method="_on_get3dmodel_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/GetSprite2D" to="CanvasLayer" method="_on_getNftAsSprite2D_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/GetImageTexture" to="CanvasLayer" method="_on_getNftAsTexture_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/GetMusic" to="CanvasLayer" method="_on_getNftAsAudio_button_pressed"]
