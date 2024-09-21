@@ -30,6 +30,8 @@ chainId = 84532
 
 [node name="TestScene" type="Node2D"]
 
+[node name="Camera3D" type="Camera3D" parent="."]
+
 [node name="BlockchainManager" type="Node" parent="." groups=["Blockchain"]]
 script = ExtResource("1_mbgf3")
 
@@ -87,8 +89,13 @@ text = "CLAIM ERC721"
 layout_mode = 2
 text = "CLAIM ERC1155"
 
+[node name="Get3DModel" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "GET 3D MODEL"
+
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Button" to="CanvasLayer" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/SmartWalletButton" to="CanvasLayer" method="_on_smart_wallet_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC20" to="CanvasLayer" method="_on_claim_erc20_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC721" to="CanvasLayer" method="_on_claim_erc721_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC1155" to="CanvasLayer" method="_on_claim_erc1155_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Get3DModel" to="CanvasLayer" method="_on_get3dmodel_button_pressed"]

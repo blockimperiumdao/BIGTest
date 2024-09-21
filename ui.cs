@@ -1,6 +1,9 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using GodotBlockchain.addons.godotblockchain;
+using GodotBlockchain.addons.godotblockchain.utils;
+using Thirdweb;
 
 public partial class ui : CanvasLayer
 {
@@ -99,7 +102,7 @@ public partial class ui : CanvasLayer
 	{
 		GD.Print("ERC1155 claim Pressed");
 		
-		int tokenId = 4;
+		int tokenId = 1;
 		int quantity = 1;
 		
 		if (erc1155ContractNode != null)
@@ -119,6 +122,43 @@ public partial class ui : CanvasLayer
 			GD.Print("No contract node - did you remember to set the ERC1155 contract node in the Godot UI?");
 		}
 	}	
+
+	public async void _on_get3dmodel_button_pressed()
+	{
+		GD.Print("Get 3D Model Pressed");
+		
+		if (erc721ContractNode != null)
+		{
+			erc721ContractNode.Initialize();
+			
+			List<NFT> nfts = await erc721ContractNode.InternalThirdwebContract.ERC721_GetAllNFTs();
+			GD.Print("NFTs owned: " + nfts.Count);
+			
+			//iterate over the NFTs and get the first one
+			//
+			foreach ( var nft in nfts )
+			{
+				GD.Print("NFT ID: " + nft.Metadata.Name + " Token ID: " + nft.Metadata.Id );
+
+				if (nft.Metadata.Name.Contains("3d"))
+				{
+					GD.Print("Fetching state for NFT: " + nft.Metadata.Name + " Token ID: " + nft.Metadata.Id );
+					Node nftAsNode = await TokenUtils.GetNFTAsNode( nft );
+					
+					AddChild(nftAsNode);
+				}
+			}
+			
+			//NFT nft = await erc721ContractNode.InternalThirdwebContract.ERC721_GetNFT( tokenId );
+
+			
+			GD.Print("3D Model Fetched!");
+		}
+		else
+		{
+			GD.Print("No contract node - did you remember to set the contract node in the Godot UI?");
+		}
+	}
 	
 	public void DisplayLog( string message )
 	{
