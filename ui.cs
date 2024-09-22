@@ -195,6 +195,8 @@ public partial class ui : CanvasLayer
 		if (erc721ContractNode != null)
 		{
 			erc721ContractNode.Initialize();
+
+			List<NFT> aList = await TokenUtils.QueryNFTsFromContractNode(erc721ContractNode, new Dictionary<string, object>());
 			
 			List<NFT> nfts = await TokenUtils.GetAllNFTsFromContractNode( erc721ContractNode );
 			GD.Print("NFTs owned: " + nfts.Count);
@@ -205,16 +207,17 @@ public partial class ui : CanvasLayer
 			{
 				GD.Print("NFT ID: " + nft.Metadata.Name + " Token ID: " + nft.Metadata.Id );
 
-				if (nft.Metadata.Name.Contains("3d"))
+				if (nft.Metadata.Name.Contains("Scene"))
 				{
 					GD.Print("Fetching state for NFT: " + nft.Metadata.Name + " Token ID: " + nft.Metadata.Id );
 					Node nftAsNode = await TokenUtils.GetNFTAsNode( nft );
-					
 					AddChild(nftAsNode);
+					
+					GD.Print("3D Model Fetched!");
+
 				}
 			}
 			
-			GD.Print("3D Model Fetched!");
 		}
 		else
 		{
