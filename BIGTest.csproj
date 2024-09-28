@@ -10,4 +10,7 @@
     <PackageReference Include="Thirdweb" Version="2.0.0" />
     <!-- Update with the latest version when necessary -->
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="scripts\FirstPersonController.gd" />
+  </ItemGroup>
 </Project>

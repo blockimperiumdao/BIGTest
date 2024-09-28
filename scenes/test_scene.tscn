@@ -1,17 +1,21 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6mvy2ksuboop"]
+[gd_scene load_steps=16 format=3 uid="uid://c6mvy2ksuboop"]
 
-[ext_resource type="Script" path="res://addons/godotblockchain/BlockchainContractNode.cs" id="1_mbgf3"]
-[ext_resource type="Script" path="res://addons/godotblockchain/BlockchainClientNode.cs" id="2_i3nbm"]
-[ext_resource type="Script" path="res://addons/godotblockchain/BlockchainClientConfigurationResource.cs" id="3_tyso8"]
-[ext_resource type="Script" path="res://ui.cs" id="4_al5qr"]
-[ext_resource type="Script" path="res://addons/godotblockchain/ERC20BlockchainContractNode.cs" id="4_o3opm"]
-[ext_resource type="Resource" uid="uid://cemrutmfr813k" path="res://config/base_sepolia_afro_token_contract.tres" id="5_xmv7u"]
-[ext_resource type="Script" path="res://addons/godotblockchain/ERC721BlockchainContractNode.cs" id="6_w5qy1"]
-[ext_resource type="Script" path="res://addons/godotblockchain/BlockchainContractResource.cs" id="7_5il0c"]
-[ext_resource type="Script" path="res://addons/godotblockchain/ERC1155BlockchainContractNode.cs" id="7_bgbx6"]
+[ext_resource type="Script" path="res://scripts/FirstPersonController.gd" id="1_qb4h1"]
+[ext_resource type="Script" path="res://addons/godotblockchain/BlockchainContractNode.cs" id="2_g5fwn"]
+[ext_resource type="Script" path="res://addons/godotblockchain/BlockchainClientNode.cs" id="3_aax8c"]
+[ext_resource type="Script" path="res://addons/godotblockchain/BlockchainClientConfigurationResource.cs" id="4_e3puq"]
+[ext_resource type="Script" path="res://addons/godotblockchain/ERC20BlockchainContractNode.cs" id="5_so4h8"]
+[ext_resource type="Resource" uid="uid://cemrutmfr813k" path="res://config/base_sepolia_afro_token_contract.tres" id="6_1fm0l"]
+[ext_resource type="Script" path="res://addons/godotblockchain/ERC721BlockchainContractNode.cs" id="7_agpos"]
+[ext_resource type="Script" path="res://addons/godotblockchain/BlockchainContractResource.cs" id="8_qvqqn"]
+[ext_resource type="Script" path="res://addons/godotblockchain/ERC1155BlockchainContractNode.cs" id="9_0tbvc"]
+[ext_resource type="Script" path="res://ui.cs" id="10_0dtuw"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="11_ycivm"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4a52p"]
 
 [sub_resource type="Resource" id="Resource_jwm2x"]
-script = ExtResource("3_tyso8")
+script = ExtResource("4_e3puq")
 walletFactoryAddress = "0x10FAd3466f1c5d950A49Cc562337Ebf8Bf86edb9"
 chainId = 84532
 bundleId = "com.big.test"
@@ -19,40 +23,47 @@ clientId = "bb2324eb6b7398856a1ad7c8980c4e11"
 isGasless = true
 
 [sub_resource type="Resource" id="Resource_bsj7q"]
-script = ExtResource("7_5il0c")
+script = ExtResource("8_qvqqn")
 contractAddress = "0x28A8676C3e948749F278C3338DBA957754F5624A"
 chainId = 84532
 
 [sub_resource type="Resource" id="Resource_hbv6b"]
-script = ExtResource("7_5il0c")
+script = ExtResource("8_qvqqn")
 contractAddress = "0x700B8175ab0463C96339577434587E68b9317348"
 chainId = 84532
 
 [node name="TestScene" type="Node2D"]
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("1_qb4h1")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.524006, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_4a52p")
 
 [node name="BlockchainManager" type="Node" parent="." groups=["Blockchain"]]
-script = ExtResource("1_mbgf3")
+script = ExtResource("2_g5fwn")
 
 [node name="BlockchainClient" type="Node" parent="BlockchainManager" groups=["Blockchain"]]
-script = ExtResource("2_i3nbm")
+script = ExtResource("3_aax8c")
 clientConfiguration = SubResource("Resource_jwm2x")
 
 [node name="ERC20DropContract" type="Node" parent="BlockchainManager" groups=["Blockchain"]]
-script = ExtResource("4_o3opm")
-ContractResource = ExtResource("5_xmv7u")
+script = ExtResource("5_so4h8")
+ContractResource = ExtResource("6_1fm0l")
 
 [node name="ERC721BlockchainContractNode" type="Node" parent="BlockchainManager" groups=["Blockchain"]]
-script = ExtResource("6_w5qy1")
+script = ExtResource("7_agpos")
 ContractResource = SubResource("Resource_bsj7q")
 
 [node name="ERC1155BlockchainContractNode" type="Node" parent="BlockchainManager" groups=["Blockchain"]]
-script = ExtResource("7_bgbx6")
+script = ExtResource("9_0tbvc")
 ContractResource = SubResource("Resource_hbv6b")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("erc20ContractNode", "erc1155ContractNode", "erc721ContractNode")]
-script = ExtResource("4_al5qr")
+script = ExtResource("10_0dtuw")
 erc20ContractNode = NodePath("../BlockchainManager/ERC20DropContract")
 erc1155ContractNode = NodePath("../BlockchainManager/ERC1155BlockchainContractNode")
 erc721ContractNode = NodePath("../BlockchainManager/ERC721BlockchainContractNode")
@@ -104,6 +115,24 @@ text = "GET IMAGE TEXTURE"
 [node name="GetMusic" type="Button" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
 text = "GET MUSIC"
+
+[node name="Left Joystick" parent="CanvasLayer" instance=ExtResource("11_ycivm")]
+offset_top = -300.0
+offset_bottom = 0.0
+action_left = "move_left"
+action_right = "move_right"
+action_up = "move_forward"
+action_down = "move_backward"
+
+[node name="Right Joystick" parent="CanvasLayer" instance=ExtResource("11_ycivm")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Button" to="CanvasLayer" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/SmartWalletButton" to="CanvasLayer" method="_on_smart_wallet_button_pressed"]

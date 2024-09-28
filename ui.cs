@@ -7,6 +7,9 @@ using Thirdweb;
 
 public partial class ui : CanvasLayer
 {
+	[Signal]
+	public delegate void ChangeMenuModeEventHandler( bool isMenuMode );
+
 	bool isLoginStarted = false;
 	
 	[Export]
@@ -17,16 +20,44 @@ public partial class ui : CanvasLayer
 	
 	[Export]
 	private ERC721BlockchainContractNode			erc721ContractNode;
+
+	private VBoxContainer                           _uiNode;
+
+	private CharacterBody3D 						_characterBody3D;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		BlockchainClientNode.Instance.ClientLogMessage += DisplayLog;
+
+		_uiNode = GetNode<VBoxContainer>("VBoxContainer");
+		_characterBody3D = GetNode<CharacterBody3D>("/root/TestScene/CharacterBody3D");
+
+		if (_characterBody3D != null)
+		{
+			Callable callable = new Callable(_characterBody3D, "on_menu_mode_changed");
+			// Connect the signal to the method
+			Connect( "ChangeMenuMode", callable );
+		}
+
+		// if (_characterBody3D is FirstPersonController firstPersonController) 
+		// 	ChangeMenuMode += firstPersonController.OnMenuModeChanged;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if (Input.IsActionJustPressed("ui_cancel")) // Default "Escape" key action in Godot
+		{
+			// Toggle visibility
+			if (_uiNode != null)
+			{
+				_uiNode.Visible = !_uiNode.Visible;
+
+				// Emit signal to notify other nodes that the menu mode has changed
+				EmitSignal( SignalName.ChangeMenuMode, _uiNode.Visible );
+			}
+		}
 	}
 	
 	public async void _on_button_pressed()
