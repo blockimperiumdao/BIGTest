@@ -6,7 +6,6 @@ public partial class FirstPersonController : CharacterBody3D
     [Export] public float MoveSpeed = 3.0f;
     [Export] public float MouseSensitivity = 0.002f;
     [Export] public float LookLimit = 90.0f;
-    [Export] 
 
     private Camera3D _camera;
     private Vector2 _mouseRotation = Vector2.Zero; // Store yaw and pitch

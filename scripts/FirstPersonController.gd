@@ -4,14 +4,19 @@ extends CharacterBody3D
 @export var mouse_sensitivity: float = 0.002
 @export var look_limit: float = 90.0
 
+@export var left_joystick: VirtualJoystick
+@export var right_joystick: VirtualJoystick
+
 var _camera: Camera3D
 var _mouse_rotation: Vector2 = Vector2.ZERO  # Store yaw and pitch
-var _is_menu_mode: bool = true
+var _is_menu_mode: bool = true # app starts in menu mode
 
 func _ready() -> void:
 	# Get reference to the Camera3D node (assumed to be a child of this node)
 	_camera = $Camera3D
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	left_joystick.visible = false
+	right_joystick.visible = false
 # Input.mouse_mode = Input.MOUSE_MODE_CAPTURED  # Capture the mouse for FPS-style controls
 
 func on_menu_mode_changed(is_menu_mode: bool) -> void:
@@ -19,6 +24,14 @@ func on_menu_mode_changed(is_menu_mode: bool) -> void:
 	# Change the mouse mode based on the menu mode
 	# Input.mouse_mode = if is_menu_mode else Input.MOUSE_MODE_CAPTURED
 	_is_menu_mode = is_menu_mode
+
+	if !is_menu_mode:
+		left_joystick.visible = true
+		right_joystick.visible = true
+	else:
+		left_joystick.visible = false
+		right_joystick.visible = false
+
 
 func _process(delta: float) -> void:
 	# Don't process input if in menu mode

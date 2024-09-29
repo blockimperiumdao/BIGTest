@@ -34,8 +34,10 @@ chainId = 84532
 
 [node name="TestScene" type="Node2D"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("left_joystick", "right_joystick")]
 script = ExtResource("1_qb4h1")
+left_joystick = NodePath("../CanvasLayer/Left Joystick")
+right_joystick = NodePath("../CanvasLayer/Right Joystick")
 
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.524006, 0)
