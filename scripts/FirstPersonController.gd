@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 @export var move_speed: float = 3.0
 @export var mouse_sensitivity: float = 0.002
+@export var joystick_sensitivity: float = 1.0
 @export var look_limit: float = 90.0
 
 @export var left_joystick: VirtualJoystick
@@ -39,6 +40,7 @@ func _process(delta: float) -> void:
 		return
 
 	# handle_mouse_look()  # Rotate the camera based on mouse movement
+	handle_rotate()
 	handle_movement(delta)  # Move the player based on keyboard input
 
 func handle_mouse_look() -> void:
@@ -46,6 +48,16 @@ func handle_mouse_look() -> void:
 
 	_mouse_rotation.x = clamp(_mouse_rotation.x - mouse_movement.y * mouse_sensitivity, -look_limit, look_limit)  # Pitch (Vertical look)
 	_mouse_rotation.y -= mouse_movement.x * mouse_sensitivity  # Yaw (Horizontal look)
+
+	# Apply the vertical (pitch) rotation to the camera and horizontal (yaw) to the player
+	_camera.rotation_degrees = Vector3(_mouse_rotation.x, 0, 0)
+	rotation_degrees = Vector3(0, _mouse_rotation.y, 0)  # Rotate the player body horizontally
+
+func handle_rotate() -> void:
+	var mouse_movement: Vector2 = right_joystick.output # Get mouse movement
+
+	_mouse_rotation.x = clamp(_mouse_rotation.x - mouse_movement.y * joystick_sensitivity, -look_limit, look_limit)  # Pitch (Vertical look)
+	_mouse_rotation.y -= mouse_movement.x * joystick_sensitivity  # Yaw (Horizontal look)
 
 	# Apply the vertical (pitch) rotation to the camera and horizontal (yaw) to the player
 	_camera.rotation_degrees = Vector3(_mouse_rotation.x, 0, 0)
