@@ -30,7 +30,7 @@ public partial class ui : CanvasLayer
 	{
 		BlockchainClientNode.Instance.ClientLogMessage += DisplayLog;
 
-		_uiNode = GetNode<VBoxContainer>("VBoxContainer");
+		_uiNode = GetNode<VBoxContainer>("CenterContainer/VBoxContainer");
 		_characterBody3D = GetNode<CharacterBody3D>("/root/TestScene/CharacterBody3D");
 
 		if (_characterBody3D != null)
@@ -62,8 +62,8 @@ public partial class ui : CanvasLayer
 	
 	public async void _on_button_pressed()
 	{
-		var emailEntry = GetNode<LineEdit>("/root/TestScene/CanvasLayer/VBoxContainer/EmailEntry");
-		var otpEntry = GetNode<LineEdit>("/root/TestScene/CanvasLayer/VBoxContainer/OTPEntry");
+		var emailEntry = GetNode<LineEdit>("/root/TestScene/CanvasLayer/CenterContainer/VBoxContainer/EmailEntry");
+		var otpEntry = GetNode<LineEdit>("/root/TestScene/CanvasLayer/CenterContainer/VBoxContainer/OTPEntry");
 		
 		GD.Print("Testing");
 		

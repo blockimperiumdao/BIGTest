@@ -70,54 +70,6 @@ erc20ContractNode = NodePath("../BlockchainManager/ERC20DropContract")
 erc1155ContractNode = NodePath("../BlockchainManager/ERC1155BlockchainContractNode")
 erc721ContractNode = NodePath("../BlockchainManager/ERC721BlockchainContractNode")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
-offset_left = 266.0
-offset_top = 81.0
-offset_right = 895.0
-offset_bottom = 533.0
-
-[node name="EmailEntry" type="LineEdit" parent="CanvasLayer/VBoxContainer"]
-layout_mode = 2
-
-[node name="OTPEntry" type="LineEdit" parent="CanvasLayer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="CanvasLayer/VBoxContainer"]
-layout_mode = 2
-text = "SUBMIT"
-
-[node name="SmartWalletButton" type="Button" parent="CanvasLayer/VBoxContainer"]
-layout_mode = 2
-text = "CREATE SMART WALLET"
-
-[node name="ClaimERC20" type="Button" parent="CanvasLayer/VBoxContainer"]
-layout_mode = 2
-text = "CLAIM ERC20"
-
-[node name="ClaimERC721" type="Button" parent="CanvasLayer/VBoxContainer"]
-layout_mode = 2
-text = "CLAIM ERC721"
-
-[node name="ClaimERC1155" type="Button" parent="CanvasLayer/VBoxContainer"]
-layout_mode = 2
-text = "CLAIM ERC1155"
-
-[node name="Get3DModel" type="Button" parent="CanvasLayer/VBoxContainer"]
-layout_mode = 2
-text = "GET 3D MODEL"
-
-[node name="GetSprite2D" type="Button" parent="CanvasLayer/VBoxContainer"]
-layout_mode = 2
-text = "GET SPRITE 2D"
-
-[node name="GetImageTexture" type="Button" parent="CanvasLayer/VBoxContainer"]
-layout_mode = 2
-text = "GET IMAGE TEXTURE"
-
-[node name="GetMusic" type="Button" parent="CanvasLayer/VBoxContainer"]
-layout_mode = 2
-text = "GET MUSIC"
-
 [node name="Left Joystick" parent="CanvasLayer" instance=ExtResource("11_ycivm")]
 offset_top = -300.0
 offset_bottom = 0.0
@@ -136,12 +88,66 @@ offset_right = 0.0
 offset_bottom = 0.0
 grow_horizontal = 0
 
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/Button" to="CanvasLayer" method="_on_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/SmartWalletButton" to="CanvasLayer" method="_on_smart_wallet_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC20" to="CanvasLayer" method="_on_claim_erc20_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC721" to="CanvasLayer" method="_on_claim_erc721_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/ClaimERC1155" to="CanvasLayer" method="_on_claim_erc1155_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/Get3DModel" to="CanvasLayer" method="_on_get3dmodel_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/GetSprite2D" to="CanvasLayer" method="_on_getNftAsSprite2D_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/GetImageTexture" to="CanvasLayer" method="_on_getNftAsTexture_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/GetMusic" to="CanvasLayer" method="_on_getNftAsAudio_button_pressed"]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer"]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+alignment = 1
+
+[node name="EmailEntry" type="LineEdit" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="OTPEntry" type="LineEdit" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "SUBMIT"
+
+[node name="SmartWalletButton" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "CREATE SMART WALLET"
+
+[node name="ClaimERC20" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "CLAIM ERC20"
+
+[node name="ClaimERC721" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "CLAIM ERC721"
+
+[node name="ClaimERC1155" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "CLAIM ERC1155"
+
+[node name="Get3DModel" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "GET 3D MODEL"
+
+[node name="GetSprite2D" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "GET SPRITE 2D"
+
+[node name="GetImageTexture" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "GET IMAGE TEXTURE"
+
+[node name="GetMusic" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "GET MUSIC"
+
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/Button" to="CanvasLayer" method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/SmartWalletButton" to="CanvasLayer" method="_on_smart_wallet_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/ClaimERC20" to="CanvasLayer" method="_on_claim_erc20_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/ClaimERC721" to="CanvasLayer" method="_on_claim_erc721_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/ClaimERC1155" to="CanvasLayer" method="_on_claim_erc1155_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/Get3DModel" to="CanvasLayer" method="_on_get3dmodel_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/GetSprite2D" to="CanvasLayer" method="_on_getNftAsSprite2D_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/GetImageTexture" to="CanvasLayer" method="_on_getNftAsTexture_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/GetMusic" to="CanvasLayer" method="_on_getNftAsAudio_button_pressed"]

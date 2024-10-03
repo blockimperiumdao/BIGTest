@@ -6,3 +6,5 @@ android/
 #Make sure the addons directory doesn't make its way into the repo (even if symlinked)
 addons
 addons/
+
+out/
