@@ -227,7 +227,7 @@ public partial class ui : CanvasLayer
 		{
 			erc721ContractNode.Initialize();
 
-			List<NFT> aList = await TokenUtils.QueryNFTsFromContractNode(erc721ContractNode, new Dictionary<string, object>());
+			List<NFT> aList = await TokenUtils.QueryOwnedNFTsFromContractNode(erc721ContractNode, new Dictionary<string, object>());
 			
 			List<NFT> nfts = await TokenUtils.GetAllNFTsFromContractNode( erc721ContractNode );
 			GD.Print("NFTs owned: " + nfts.Count);
